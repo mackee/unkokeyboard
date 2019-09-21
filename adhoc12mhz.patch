@@ -1,0 +1,74 @@
+diff -uprN a/platformio/packages/framework-arduinoavr/cores/digispark_tiny/TinyDebugSerial.h b/platformio/packages/framework-arduinoavr/cores/digispark_tiny/TinyDebugSerial.h
+--- a/platformio/packages/framework-arduinoavr/cores/digispark_tiny/TinyDebugSerial.h	2016-02-13 01:44:38.000000000 +0900
++++ b/platformio/packages/framework-arduinoavr/cores/digispark_tiny/TinyDebugSerial.h	2019-09-21 23:26:30.000000000 +0900
+@@ -640,6 +640,11 @@ class TinyDebugSerialWriter_16_115200 : 
+   typedef TinyDebugSerialWriter_16_38400<TINY_DEBUG_SERIAL_REGISTER,TINY_DEBUG_SERIAL_BIT> TinyDebugSerialWriter_38400;
+   typedef TinyDebugSerialWriter_16_115200<TINY_DEBUG_SERIAL_REGISTER,TINY_DEBUG_SERIAL_BIT> TinyDebugSerialWriter_115200;
+   #define TINY_DEBUG_SERIAL_SUPPORTED 1
++#elif F_CPU == 12000000L
++  typedef TinyDebugSerialWriter_16_9600<TINY_DEBUG_SERIAL_REGISTER,TINY_DEBUG_SERIAL_BIT> TinyDebugSerialWriter_9600;
++  typedef TinyDebugSerialWriter_16_38400<TINY_DEBUG_SERIAL_REGISTER,TINY_DEBUG_SERIAL_BIT> TinyDebugSerialWriter_38400;
++  typedef TinyDebugSerialWriter_16_115200<TINY_DEBUG_SERIAL_REGISTER,TINY_DEBUG_SERIAL_BIT> TinyDebugSerialWriter_115200;
++  #define TINY_DEBUG_SERIAL_SUPPORTED 1
+ /*
+   9600...
+     6, 90, 2
+diff -uprN a/platformio/packages/framework-arduinoavr/cores/digispark_tiny/core_adc.h b/platformio/packages/framework-arduinoavr/cores/digispark_tiny/core_adc.h
+--- a/platformio/packages/framework-arduinoavr/cores/digispark_tiny/core_adc.h	2016-02-13 01:44:38.000000000 +0900
++++ b/platformio/packages/framework-arduinoavr/cores/digispark_tiny/core_adc.h	2019-09-21 23:27:49.000000000 +0900
+@@ -51,6 +51,9 @@
+ #elif F_CPU == 8000000
+   // 8 MHz / 64 = 125 KHz
+   #define ADC_ARDUINO_PRESCALER   ADC_Prescaler_Value_64
++#elif F_CPU == 12000000
++  // 12 MHz / 64 = 187.5 KHz
++  #define ADC_ARDUINO_PRESCALER   ADC_Prescaler_Value_64
+ #elif F_CPU == 1000000
+   // 1 MHz / 8 = 125 KHz
+   #define ADC_ARDUINO_PRESCALER   ADC_Prescaler_Value_8
+diff -uprN a/platformio/packages/framework-arduinoavr/libraries/__cores__/digispark/DigisparkKeyboard/osccal.c b/platformio/packages/framework-arduinoavr/libraries/__cores__/digispark/DigisparkKeyboard/osccal.c
+--- a/platformio/packages/framework-arduinoavr/libraries/__cores__/digispark/DigisparkKeyboard/osccal.c	2016-02-13 01:42:36.000000000 +0900
++++ b/platformio/packages/framework-arduinoavr/libraries/__cores__/digispark/DigisparkKeyboard/osccal.c	2019-09-21 23:38:08.000000000 +0900
+@@ -24,8 +24,10 @@
+  */
+ void    calibrateOscillator(void)
+ {
+-uchar       step = 128;
+-uchar       trialValue = 0, optimumValue;
++//uchar       step = 128;
++//uchar       trialValue = 0, optimumValue;
++uchar       step = 32;
++uchar       trialValue = 192, optimumValue;
+ int         x, optimumDev, targetValue = (unsigned)(1499 * (double)F_CPU / 10.5e6 + 0.5);
+ 
+     /* do a binary search: */
+diff -uprN a/platformio/packages/framework-arduinoavr/libraries/__cores__/digispark/DigisparkKeyboard/usbconfig.h b/platformio/packages/framework-arduinoavr/libraries/__cores__/digispark/DigisparkKeyboard/usbconfig.h
+--- a/platformio/packages/framework-arduinoavr/libraries/__cores__/digispark/DigisparkKeyboard/usbconfig.h	2016-02-13 01:42:36.000000000 +0900
++++ b/platformio/packages/framework-arduinoavr/libraries/__cores__/digispark/DigisparkKeyboard/usbconfig.h	2019-09-21 23:37:39.000000000 +0900
+@@ -28,8 +28,8 @@ section at the end of this file).
+ 
+ #if defined (__AVR_ATtiny44__) || defined (__AVR_ATtiny84__)
+ #define USB_CFG_IOPORTNAME      B
+-#define USB_CFG_DMINUS_BIT      1
+-#define USB_CFG_DPLUS_BIT       2
++#define USB_CFG_DMINUS_BIT      0
++#define USB_CFG_DPLUS_BIT       1
+ 
+ #elif defined (__AVR_ATtiny45__) || defined (__AVR_ATtiny85__)
+ #define USB_CFG_IOPORTNAME      B
+@@ -407,5 +407,15 @@ section at the end of this file).
+ #define USB_INTR_VECTOR         PCINT1_vect
+ #endif
+ 
++#if defined (__AVR_ATtiny44__) || defined (__AVR_ATtiny84__)
++#define USB_INTR_CFG            PCMSK1
++#define USB_INTR_CFG_SET        (1 << USB_CFG_DPLUS_BIT)
++#define USB_INTR_CFG_CLR        0
++#define USB_INTR_ENABLE         GIMSK
++#define USB_INTR_ENABLE_BIT     PCIE1
++#define USB_INTR_PENDING        GIFR
++#define USB_INTR_PENDING_BIT    PCIF1
++#define USB_INTR_VECTOR         PCINT1_vect
++#endif
+ 
+ #endif /* __usbconfig_h_included__ */
