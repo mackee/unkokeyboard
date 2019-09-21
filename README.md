@@ -9,7 +9,29 @@
 
 ## 組み立て方
 
-(STAB)
+### 部品
+![](https://i.imgur.com/ZldThDv.jpg)
+
+|名前|数|備考|
+|:---|:---|---|
+|PCB|1枚||
+|プレート|1枚||
+|キースイッチ|4個|赤 or 白 or 茶が4個入っています|
+|キーキャップ|4個||
+|スペーサー|4個||
+
+### 組み立て
+1. PCBにスペーサーを取り付ける。
+![](https://i.imgur.com/blygdd1.jpg)
+
+2. プレートを取り付けて、裏返す。
+![](https://i.imgur.com/lFPxIRP.jpg)
+
+3. キースイッチを付ける。
+![](https://i.imgur.com/Wv6NRNS.jpg)
+
+4. キーキャップを付けて完成。
+![](https://i.imgur.com/DFLT7Mw.jpg)
 
 ## ファームウェアのカスタマイズ方法
 
