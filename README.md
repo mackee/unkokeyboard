@@ -1,6 +1,20 @@
+# Cool Poop Keyboard
+
+The Cool Poop Keyboard is a too-small keyboard.
+
+![](https://i.imgur.com/mQhGsHr.jpg)
+
+This keyboard has only 4 keys and 4 full-color LEDs.
+
+It uses an ATTiny84 with [micronucleus](https://github.com/micronucleus/mirconucleus) firmware.
+
+This product made for distributing at [The Techbook fest 7th](https://techbookfest.org/event/tbf07).
+
+Following japanese text is a build guide for customer.
+
 # かっこいいうんこキーボード
 
-この文章は技術書典7で頒布した「かっこいいうんこキーボード」の取扱説明書です。
+この文章は技術書典7などで頒布した「かっこいいうんこキーボード」の取扱説明書です。
 
 ## この文章で知れること
 
