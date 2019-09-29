@@ -2,7 +2,7 @@
 
 The Cool Poop Keyboard is a too-small keyboard.
 
-![](https://i.imgur.com/mQhGsHr.jpg)
+![](https://i.imgur.com/NZkXAoG.png)
 
 This keyboard has only 4 keys and 4 full-color LEDs.
 
