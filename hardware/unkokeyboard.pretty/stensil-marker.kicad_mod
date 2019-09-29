@@ -1,0 +1,9 @@
+(module stensil-marker (layer F.Cu) (tedit 5D7BB4EC)
+  (fp_text reference REF** (at 0 3.75) (layer F.SilkS) hide
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+  (fp_text value stensil-marker (at 0 2.75) (layer F.Fab)
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+  (pad 1 smd circle (at 0 0) (size 2.2 2.2) (layers F.Cu F.Paste F.Mask))
+)

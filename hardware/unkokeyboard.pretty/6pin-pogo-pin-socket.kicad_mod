@@ -1,0 +1,8 @@
+(module 6pin-pogo-pin-socket (layer F.Cu) (tedit 5D7A4808)
+  (fp_text reference REF** (at 0 0.5) (layer F.SilkS)
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+  (fp_text value 6pin-pogo-pin-socket (at 0 -0.5) (layer F.Fab)
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+)

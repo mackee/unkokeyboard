@@ -1,2 +1,6 @@
 .pio
 platformio
+hardware/_autosave-unkokeyboard.kicad_pcb
+hardware/*bak
+hardware/pcb
+hardware/design
